@@ -21,6 +21,8 @@
         complete: function() {
           if(has_webgl()) {
             init();
+          } else {
+            document.body.className = 'no-webgl';
           }
         }
       })
@@ -72,6 +74,9 @@
 		
 		
 		<script type="text/javascript">
+			/*
+			 * Thanks to Mr. doob and http://mrdoob.com/131/Clouds
+			 */
 			
 			var container;
 			var camera, scene, renderer;
@@ -84,11 +89,11 @@
 				document.body.appendChild(container);
 
 				var canvas = document.createElement('canvas');
-				canvas.width = 32;
-				canvas.height = window.innerHeight;
+				canvas.width = document.width/4;
+        canvas.height = document.height/4;
 
-				camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
-				camera.position.z = 6000;
+				camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 3000);
+				camera.position.z = 2000;
 
 				scene = new THREE.Scene();
 				geometry = new THREE.Geometry();
@@ -104,7 +109,7 @@
 						"map": {type: "t", value: texture},
 						"fogColor": {type: "c", value: fog.color},
 						"fogNear": {type: "f", value: fog.near},
-						"fogFar": {type: "f", value: fog.far},
+						"fogFar": {type: "f", value: fog.far}
 					},
 					vertexShader: document.getElementById('vs').textContent,
 					fragmentShader: document.getElementById('fs').textContent,
@@ -115,7 +120,7 @@
 
 				var plane = new THREE.Mesh(new THREE.PlaneGeometry(64, 64));
 
-				for (var i = 0; i < 8000; i++) {
+				for (var i = 0; i < 2000; i+=2) {
 					plane.position.x = Math.random() * 1000 - 500;
 					plane.position.y = - Math.random() * Math.random() * 200 - 15;
 					plane.position.z = i;
@@ -129,7 +134,7 @@
 				scene.add(mesh);
 
 				mesh = new THREE.Mesh(geometry, material);
-				mesh.position.z = - 8000;
+				mesh.position.z = - 2000;
 				scene.add(mesh);
 
 				renderer = new THREE.WebGLRenderer({antialias: false});
@@ -142,14 +147,13 @@
 			function onWindowResize(event) {
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
-
 				renderer.setSize(window.innerWidth, window.innerHeight);
 			}
 
 			function animate() {
 				requestAnimationFrame(animate);
-				position = ((Date.now() - start_time) * 0.03) % 8000;
-				camera.position.z = - position + 8000;
+				position = ((Date.now() - start_time) * 0.03) % 2000;
+				camera.position.z = - position + 2000;
 				renderer.render(scene, camera);
 			}
 		</script>
