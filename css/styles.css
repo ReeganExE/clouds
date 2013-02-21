@@ -33,8 +33,6 @@ canvas {
   top: 0;
   left: 0;
   z-index: -1;
-  -webkit-transform: scale3d(4.0, 4.0, 1.0);
-  -webkit-transform-origin: 0 0 0;
 }
 
 .container {

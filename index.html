@@ -89,8 +89,8 @@
 				document.body.appendChild(container);
 
 				var canvas = document.createElement('canvas');
-				canvas.width = document.width/4;
-        canvas.height = document.height/4;
+				canvas.width = document.width;
+        canvas.height = document.height;
 
 				camera = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 3000);
 				camera.position.z = 2000;
